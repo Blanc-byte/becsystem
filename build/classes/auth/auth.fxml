@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auth.authController">
+   <children>
+      <Pane prefHeight="125.0" prefWidth="380.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="logIn" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;">
+         <children>
+            <Label layoutX="90.0" layoutY="118.0" text="USERNAME" />
+            <TextField fx:id="user" layoutX="90.0" layoutY="135.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="182.0" text="PASSWORD" />
+            <TextField fx:id="pass" layoutX="90.0" layoutY="199.0" prefHeight="25.0" prefWidth="200.0" />
+            <Button layoutX="163.0" layoutY="266.0" mnemonicParsing="false" onAction="#logIn" text="LOG IN" />
+            <Label layoutX="91.0" layoutY="381.0" text="Don't have an account? " />
+            <Button layoutX="217.0" layoutY="377.0" mnemonicParsing="false" onAction="#typeOfShow" style="-fx-background-color: lightgray;" text="Sign Up" />
+         </children>
+      </Pane>
+      <Pane fx:id="signUp" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;" visible="false">
+         <children>
+            <TextField fx:id="fname" layoutX="90.0" layoutY="50.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="33.0" text="Firstname" />
+            <TextField fx:id="mname" layoutX="90.0" layoutY="92.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="75.0" text="Middlename" />
+            <TextField fx:id="lname" layoutX="90.0" layoutY="134.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="117.0" text="Lastname" />
+            <TextField fx:id="contact" layoutX="90.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="159.0" text="Contact" />
+            <TextField fx:id="schoolID" layoutX="90.0" layoutY="218.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label layoutX="90.0" layoutY="201.0" text="School ID" />
+            <Label layoutX="90.0" layoutY="243.0" text="Year" />
+            <ChoiceBox fx:id="year" layoutX="90.0" layoutY="260.0" prefHeight="25.0" prefWidth="41.0" />
+            <Label layoutX="157.0" layoutY="243.0" text="Section" />
+            <ChoiceBox fx:id="section" layoutX="157.0" layoutY="260.0" prefHeight="25.0" prefWidth="41.0" />
+            <Button layoutX="161.0" layoutY="312.0" mnemonicParsing="false" onAction="#signUp2ndPhaseShow" text="CONFIRM" />
+            <ChoiceBox fx:id="course" layoutX="229.0" layoutY="260.0" prefHeight="25.0" prefWidth="41.0" />
+            <Label layoutX="230.0" layoutY="243.0" text="Course" />
+         </children>
+      </Pane>
+      <Pane fx:id="typeOf" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;" visible="false">
+         <children>
+            <Button fx:id="internal" layoutX="90.0" layoutY="139.0" mnemonicParsing="false" onAction="#signUpShowInternal" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: lightgreen;" text="INTERNAL" />
+            <Button fx:id="external" layoutX="90.0" layoutY="164.0" mnemonicParsing="false" onAction="#signUpShowExternal" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: lightblue;" text="EXTERNAL" />
+         </children>
+      </Pane>
+      <Pane fx:id="signUp2ndPhase" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" visible="false">
+         <children>
+            <TextField fx:id="userRegister" layoutX="116.0" layoutY="110.0" />
+            <Label layoutX="116.0" layoutY="93.0" text="username" />
+            <TextField fx:id="passRegister" layoutX="116.0" layoutY="161.0" />
+            <Label layoutX="116.0" layoutY="144.0" text="password" />
+            <TextField fx:id="passConfirmRegister" layoutX="116.0" layoutY="209.0" />
+            <Label layoutX="116.0" layoutY="192.0" text="confirm password" />
+            <Button layoutX="164.0" layoutY="267.0" mnemonicParsing="false" onAction="#createAccount" text="LOG IN" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

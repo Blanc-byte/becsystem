@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.studentController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: gray;">
+         <children>
+            <Button layoutY="124.0" mnemonicParsing="false" onAction="#homeClick" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: gray;" text="SERVICE" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutY="162.0" mnemonicParsing="false" onAction="#pendingClick" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: gray;" text="PENDING" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutY="200.0" mnemonicParsing="false" onAction="#approveClick" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: gray;" text="APPROVE" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutY="238.0" mnemonicParsing="false" onAction="#deniedClick" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: gray;" text="DENIED" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: gray;" text="LOG OUT" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="approve" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" visible="false">
+         <children>
+            <Label layoutX="230.0" layoutY="38.0" text="Approve Request" />
+            <TableView fx:id="approveTable" layoutX="35.0" layoutY="106.0" prefHeight="200.0" prefWidth="482.0">
+              <columns>
+                <TableColumn fx:id="requestApprove" prefWidth="229.0" text="REQUEST" />
+                <TableColumn fx:id="dateApprove" prefWidth="252.0" text="DATE" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane fx:id="pending" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" visible="false">
+         <children>
+            <Label layoutX="231.0" layoutY="33.0" text="Pending Request" />
+            <TableView fx:id="pendingTable" layoutX="35.0" layoutY="120.0" prefHeight="161.0" prefWidth="482.0">
+              <columns>
+                <TableColumn fx:id="requestColumn" prefWidth="130.0" text="REQUEST" />
+                <TableColumn fx:id="dateColumn" prefWidth="204.0" text="DATE" />
+                  <TableColumn fx:id="actionColumn" minWidth="3.0" prefWidth="172.0" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane fx:id="home" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" visible="false">
+         <children>
+            <Label layoutX="233.0" layoutY="28.0" text="SERVICE AVAILABLE" />
+            <Button layoutX="194.0" layoutY="143.0" mnemonicParsing="false" onAction="#CORClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: lightgreen;" text="COR" />
+            <Button layoutX="194.0" layoutY="181.0" mnemonicParsing="false" onAction="#GRADEClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: lightblue;" text="GRADE" />
+            <Button layoutX="194.0" layoutY="219.0" mnemonicParsing="false" onAction="#CREDClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: lightyellow;" text="CREDENTIAL" />
+         </children>
+      </Pane>
+      <Pane fx:id="reason" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" visible="false">
+         <children>
+            <Label layoutX="227.0" layoutY="75.0" text="TYPE THE REASON" />
+            <TextArea fx:id="reasonOfStudent" layoutX="58.0" layoutY="126.0" prefHeight="161.0" prefWidth="436.0" />
+            <Button layoutX="242.0" layoutY="322.0" mnemonicParsing="false" onAction="#requestSuccess" text="CONFIRM" />
+         </children>
+      </Pane>
+      <Pane fx:id="credentialsPane" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" visible="false">
+         <children>
+            <CheckBox fx:id="tor" layoutX="125.0" layoutY="124.0" mnemonicParsing="false" text="TOR" />
+            <CheckBox fx:id="ad" layoutX="125.0" layoutY="155.0" mnemonicParsing="false" text="AD" />
+            <CheckBox fx:id="authentication" layoutX="125.0" layoutY="185.0" mnemonicParsing="false" text="AUTHENTICATION" />
+            <CheckBox fx:id="goodmoral" layoutX="310.0" layoutY="124.0" mnemonicParsing="false" text="GOODMORAL" />
+            <CheckBox fx:id="diploma" layoutX="310.0" layoutY="155.0" mnemonicParsing="false" text="DIPLOMA" />
+            <CheckBox fx:id="cav" layoutX="310.0" layoutY="186.0" mnemonicParsing="false" text="CAV" />
+            <Button layoutX="250.0" layoutY="246.0" mnemonicParsing="false" onAction="#requestCredentials" text="REQUEST" />
+         </children>
+      </Pane>
+      <Pane fx:id="denied" layoutX="200.0" prefHeight="400.0" prefWidth="552.0">
+         <children>
+            <Label layoutX="230.0" layoutY="38.0" text="Denied Request" />
+            <TableView fx:id="deniedTable" layoutX="35.0" layoutY="106.0" prefHeight="200.0" prefWidth="482.0">
+               <columns>
+                  <TableColumn fx:id="requestDenied" prefWidth="229.0" text="REQUEST" />
+                  <TableColumn fx:id="dateDenied" prefWidth="252.0" text="DATE REQUESTED" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
