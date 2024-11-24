@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auth.authController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auth.authController">
    <children>
-      <Pane prefHeight="125.0" prefWidth="380.0" style="-fx-background-color: gray;" />
-      <Pane fx:id="logIn" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;">
+      <Pane prefHeight="125.0" prefWidth="380.0" style="-fx-background-color: #FFEB3B; -fx-padding: 20px; -fx-background-insets: 0; -fx-background-radius: 0; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6);" />
+      <Pane fx:id="logIn" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: #1E90FF; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 20px; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6);">
          <children>
-            <Label layoutX="90.0" layoutY="118.0" text="USERNAME" />
-            <TextField fx:id="user" layoutX="90.0" layoutY="135.0" prefHeight="25.0" prefWidth="200.0" />
-            <Label layoutX="90.0" layoutY="182.0" text="PASSWORD" />
-            <TextField fx:id="pass" layoutX="90.0" layoutY="199.0" prefHeight="25.0" prefWidth="200.0" />
-            <Button layoutX="163.0" layoutY="266.0" mnemonicParsing="false" onAction="#logIn" text="LOG IN" />
-            <Label layoutX="91.0" layoutY="381.0" text="Don't have an account? " />
-            <Button layoutX="217.0" layoutY="377.0" mnemonicParsing="false" onAction="#typeOfShow" style="-fx-background-color: lightgray;" text="Sign Up" />
+            <Label layoutX="89.0" layoutY="113.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: Black; -fx-background-color: transparent; -fx-padding: 5px 0px 5px 0px;" text="USERNAME" />
+            <TextField fx:id="user" layoutX="90.0" layoutY="135.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 8px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0, 1;" />
+            <Label layoutX="91.0" layoutY="177.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: Black; -fx-background-color: transparent; -fx-padding: 5px 0px 5px 0px;" text="PASSWORD" />
+            <TextField fx:id="pass" layoutX="90.0" layoutY="199.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 8px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0,1;" />
+            <Button layoutX="146.0" layoutY="260.0" mnemonicParsing="false" onAction="#logIn" style="-fx-background-color: #FFD700; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-padding: 8px 16px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);" text="LOG IN" />
+            <Label layoutX="72.0" layoutY="370.0" style="-fx-text-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-font-weight: normal; fx-cursor: hand; -fx-padding: 10px 0; -fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2);" text="Don't have an account? " />
+            <Button layoutX="225.0" layoutY="370.0" mnemonicParsing="false" onAction="#typeOfShow" style="-fx-background-color: #FFD700; -fx-text-fill: #000000; -fx-font-size: 14px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-border-color: #FFD700; -fx-border-width: 2px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);" text="Sign Up" />
          </children>
       </Pane>
       <Pane fx:id="signUp" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;" visible="false">
