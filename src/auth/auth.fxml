@@ -4,24 +4,35 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auth.authController">
    <children>
-      <Pane prefHeight="125.0" prefWidth="380.0" style="-fx-background-color: #FFEB3B; -fx-padding: 20px; -fx-background-insets: 0; -fx-background-radius: 0; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6);" />
-      <Pane fx:id="logIn" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: #1E90FF; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 20px; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6);">
+      <Pane prefHeight="125.0" prefWidth="380.0" style="-fx-background-color: #FFEB3B; -fx-padding: 20px; -fx-background-insets: 0; -fx-background-radius: 0; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6); -fx-border-color: #003366; -fx-border-width: 1;">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="54.0" layoutX="156.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logoo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="48.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A; -fx-alignment: center; -fx-padding: 10px; -fx-min-width: 200px; -fx-min-height: 50px;" text="DAVAO ORIENTAL STATE UNIVERSITY" textFill="WHITE" />
+            <Label layoutX="94.0" layoutY="39.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #006400; -fx-background-color: transparent;" text="BANAYBANAY EXTENSION CAMPUS" />
+         </children></Pane>
+      <Pane fx:id="logIn" layoutY="116.0" prefHeight="434.0" prefWidth="380.0" style="-fx-background-color: #1E90FF; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 20px; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 6); -fx-border-color: #003366; -fx-border-width: 1;">
          <children>
             <Label layoutX="89.0" layoutY="113.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: Black; -fx-background-color: transparent; -fx-padding: 5px 0px 5px 0px;" text="USERNAME" />
-            <TextField fx:id="user" layoutX="90.0" layoutY="135.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 8px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0, 1;" />
+            <TextField fx:id="user" layoutX="90.0" layoutY="135.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 10px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0, 1;" />
             <Label layoutX="91.0" layoutY="177.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: Black; -fx-background-color: transparent; -fx-padding: 5px 0px 5px 0px;" text="PASSWORD" />
-            <TextField fx:id="pass" layoutX="90.0" layoutY="199.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 8px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0,1;" />
+            <TextField fx:id="pass" layoutX="90.0" layoutY="199.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #0078D4; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 10px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-text-fill: #333333; -fx-background-insets: 0,1;" />
             <Button layoutX="146.0" layoutY="260.0" mnemonicParsing="false" onAction="#logIn" style="-fx-background-color: #FFD700; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-padding: 8px 16px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);" text="LOG IN" />
             <Label layoutX="72.0" layoutY="370.0" style="-fx-text-fill: #ffffff; -fx-font-size: 14px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-font-weight: normal; fx-cursor: hand; -fx-padding: 10px 0; -fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2);" text="Don't have an account? " />
             <Button layoutX="225.0" layoutY="370.0" mnemonicParsing="false" onAction="#typeOfShow" style="-fx-background-color: #FFD700; -fx-text-fill: #000000; -fx-font-size: 14px; -fx-font-family: &quot;Segoe UI&quot;, Arial, sans-serif; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-border-color: #FFD700; -fx-border-width: 2px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);" text="Sign Up" />
          </children>
       </Pane>
-      <Pane fx:id="signUp" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;" visible="false">
+      <Pane fx:id="signUp" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: #1E90FF;" visible="false">
          <children>
             <TextField fx:id="fname" layoutX="90.0" layoutY="50.0" prefHeight="25.0" prefWidth="200.0" />
             <Label layoutX="90.0" layoutY="33.0" text="Firstname" />
@@ -42,13 +53,13 @@
             <Label layoutX="230.0" layoutY="243.0" text="Course" />
          </children>
       </Pane>
-      <Pane fx:id="typeOf" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: lightgray;" visible="false">
+      <Pane fx:id="typeOf" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: #1E90FF;" visible="false">
          <children>
             <Button fx:id="internal" layoutX="90.0" layoutY="139.0" mnemonicParsing="false" onAction="#signUpShowInternal" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: lightgreen;" text="INTERNAL" />
             <Button fx:id="external" layoutX="90.0" layoutY="164.0" mnemonicParsing="false" onAction="#signUpShowExternal" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: lightblue;" text="EXTERNAL" />
          </children>
       </Pane>
-      <Pane fx:id="signUp2ndPhase" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" visible="false">
+      <Pane fx:id="signUp2ndPhase" layoutY="124.0" prefHeight="426.0" prefWidth="380.0" style="-fx-background-color: #1E90FF;" visible="false">
          <children>
             <TextField fx:id="userRegister" layoutX="116.0" layoutY="110.0" />
             <Label layoutX="116.0" layoutY="93.0" text="username" />
