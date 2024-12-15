@@ -4,9 +4,13 @@
  */
 package auth;
 
+import controllers.studentController;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,10 +79,18 @@ public class authController {
             passwords.add(i13);
         }
     }
+    public boolean checkregistrarauth()throws Exception{
+        String adminAd="ADMINistrator", passAd="ADMINistrator";
+        if(adminAd.equals(user.getText()) && passAd.equals(pass.getText())){
+            return true;
+        }
+        return false;
+    }
     public void logIn(ActionEvent event)throws Exception{
-        if(usernames.contains(user.getText()) && passwords.contains(pass.getText())){
-            setUsername=user.getText();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/student/stage.fxml"));
+        
+        boolean logIned = true;
+        if(checkregistrarauth()){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/registrar/stage.fxml"));
             Parent root = loader.load();
 
             Stage newStage = new Stage();
@@ -87,9 +99,47 @@ public class authController {
 
             Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             currentStage.close();
+            logIned=false;
         }else{
+            for(userModel usered: users){
+                if(usered.getUsername().contains(user.getText()) && usered.getPassword().contains(pass.getText())){
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/student/stage.fxml"));
+                    Parent root = loader.load();
+
+                    Stage newStage = new Stage();
+                    newStage.setScene(new Scene(root));
+                    newStage.show();
+
+                    Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                    currentStage.close();
+
+                    studentController sC= new studentController();
+                    sC.setUsername(usered.getId()+"");
+
+                    writeToFile(usered.getId() + "", usered.getUsername());
+
+                    logIned=false;
+                }
+            }
+        }
+        if(logIned){
             JOptionPane.showMessageDialog(null, "try again!!!");
         }
+        
+    }
+    public void writeToFile(String userId, String username) throws Exception{
+        // Define the path to the text file
+        String filePath = "C:/Users/Administrator/Documents/NetBeansProjects/BECSystem/src/id.txt";  // Path to save the file (can be adjusted)
+
+        // Prepare the data you want to write to the file
+        String dataToWrite = userId;
+
+        // Write to the file
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
+        writer.write(dataToWrite);
+        System.out.println("Login data written to file successfully.");
+        writer.close();
+        
     }
     @FXML private TextField fname,mname,lname,contact,schoolID, user, pass;
     @FXML private ChoiceBox year,section, course;

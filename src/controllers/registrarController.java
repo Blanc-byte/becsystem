@@ -7,6 +7,7 @@ package controllers;
 import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -17,6 +18,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import studentModel.historyModel;
 import studentModel.requestsModel;
 
 /**
@@ -34,12 +37,19 @@ public class registrarController {final String DB_URL = "jdbc:mysql://localhost/
         connect();
         loadRequestsToTable();
     }
+    public void logout(ActionEvent event){
+        Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
     ObservableList<requestsModel> requestsPending = FXCollections.observableArrayList();
     ObservableList<requestsModel> requestsApprove = FXCollections.observableArrayList();
     public void getRequest()throws Exception{
         requestsPending.clear();requestsApprove.clear();
         java.sql.Statement statement = con.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM requests");
+        ResultSet resultSet = statement.executeQuery("SELECT CONCAT(u.firstname,' ', u.middlename, ' ', u.lastname) as student_id, "
+                                                    + "r.id, date_request, r.status, reason, date_approve, r.file " 
+                                                    + "FROM requests r " 
+                                                    + "JOIN users u ON r.student_id = u.id");
         while(resultSet.next()){
             String i = resultSet.getString("id");
             String ii = resultSet.getString("student_id");
@@ -48,14 +58,57 @@ public class registrarController {final String DB_URL = "jdbc:mysql://localhost/
             String iiiii = resultSet.getString("reason");
             String iiiiii = resultSet.getString("date_approve");
             String iiiiiii = resultSet.getString("file");
+            System.out.println(iiiiiii);
             if(iiii.equals("pending")){
                 requestsPending.add(new requestsModel(i,ii,iii,iiii,iiiii,iiiiii,iiiiiii));
-            }else{
+            }else if(iiii.equals("approved")){
                 requestsApprove.add(new requestsModel(i,ii,iii,iiii,iiiii,iiiiii,iiiiiii));
+                
             }
         }
     }
     
+    ObservableList<historyModel> internal = FXCollections.observableArrayList();
+    ObservableList<historyModel> external = FXCollections.observableArrayList();
+    public void requestHistory()throws Exception{
+        internal.clear();external.clear();
+        java.sql.Statement statement = con.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT CONCAT(u.firstname,' ', u.middlename, ' ', u.lastname) as student_id, r.id, date_request, r.status, reason,CONCAT(u.program, ' ',u.year,u.section) as course , r.file, u.type\n" +
+                                                        "FROM requests r\n" +
+                                                        "JOIN users u ON r.student_id = u.id;");
+        while(resultSet.next()){
+            String i = resultSet.getString("id");
+            String ii = resultSet.getString("student_id");
+            String iii = resultSet.getString("date_request");
+            String iiii = resultSet.getString("file");
+            String iiiii = resultSet.getString("course");
+            String iiiiii = resultSet.getString("type");
+            if(iiiiii.equals("INTERNAL")){
+                internal.add(new historyModel(i,ii,iii,iiii,iiiii,iiiiii));
+            }else{
+                external.add(new historyModel(i,ii,iii,iiii,iiiii,iiiiii));
+                
+            }
+        }
+    }
+    @FXML private TableView<historyModel> historyTable;
+    @FXML private TableColumn<historyModel, String> nameHistory,dateRequestedHistory, fileHistory, courseHistory;
+    public void showHistoryInternal()throws Exception{
+        requestHistory();
+        nameHistory.setCellValueFactory(cellData -> cellData.getValue().fullnameProperty());
+        dateRequestedHistory.setCellValueFactory(cellData -> cellData.getValue().date_requestedProperty());
+        fileHistory.setCellValueFactory(cellData -> cellData.getValue().fileProperty());
+        courseHistory.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
+        historyTable.setItems(internal);
+    }
+    public void showHistoryExternal()throws Exception{
+        requestHistory();
+        nameHistory.setCellValueFactory(cellData -> cellData.getValue().fullnameProperty());
+        dateRequestedHistory.setCellValueFactory(cellData -> cellData.getValue().date_requestedProperty());
+        fileHistory.setCellValueFactory(cellData -> cellData.getValue().fileProperty());
+        courseHistory.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
+        historyTable.setItems(external);
+    }
     
     @FXML private TableView<requestsModel> pendingTable;
     @FXML private TableColumn<requestsModel, String> name,dateRequested, file;
@@ -137,6 +190,7 @@ public class registrarController {final String DB_URL = "jdbc:mysql://localhost/
     public void historyClick()throws Exception{
         pending.setVisible(false);
         history.setVisible(true);
+        showHistoryInternal();
         getRequest();
     }
     public Connection connect() {

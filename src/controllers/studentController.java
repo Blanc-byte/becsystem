@@ -5,10 +5,12 @@ package controllers;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import auth.authController;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,8 +18,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import studentModel.requestsModel;
 
@@ -34,7 +36,26 @@ public class studentController {
     public void initialize()throws Exception{
         connect();
         loadRequestsToTable();
+        setID();
     }
+    public void logout(ActionEvent event){
+        Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+    public void setID()throws Exception{
+        BufferedReader reader = new BufferedReader(new FileReader("C:/Users/Administrator/Documents/NetBeansProjects/BECSystem/src/id.txt")); 
+        String line;
+        while ((line = reader.readLine()) != null) {
+            studentID=line;
+        }
+    }
+    public String userN;
+    public void setUsername(String userName){
+        this.userN = userName;
+        studentID=userName;
+        System.out.println("Student ID received: " + userN);
+    }
+    
     ObservableList<requestsModel> requestsPending = FXCollections.observableArrayList();
     ObservableList<requestsModel> requestsApprove = FXCollections.observableArrayList();
     ObservableList<requestsModel> requestsDenied = FXCollections.observableArrayList();
@@ -148,13 +169,14 @@ public class studentController {
         credentialsPane.setVisible(false);
         loadRequestsToTable();
     }
-    String studentRequested = "",studentID="1";
+    String studentRequested = "",studentID="";
     public void CORClick(){
         studentRequested = "COR";
         home.setVisible(false);
         reason.setVisible(true);
     }
     public void GRADEClick(){
+        studentRequested = "GRADE";
         home.setVisible(false);
         reason.setVisible(true);//ilisanan
     }
@@ -206,7 +228,7 @@ public class studentController {
         String selectedNames = selectedCheckBoxes.toString();
         
         String insertSql = "INSERT INTO `requests`(`student_id`, `reason`, `file`) "
-                            + "VALUES ('" + studentID + "', "
+                            + "VALUES ('" + studentID+"" + "', "
                             + "'" + reasonOfStudent.getText() + "', "
                             + "'" + selectedNames + "');";
         java.sql.Statement statement = con.createStatement();
@@ -233,6 +255,7 @@ public class studentController {
         reason.setVisible(false);
     }
     public void loadRequest()throws Exception{
+        System.out.println(studentID+"------------");
         String insertSql = "INSERT INTO `requests`(`student_id`, `reason`, `file`) "
                             + "VALUES ('" + studentID + "', "
                             + "'" + reasonOfStudent.getText() + "', "
