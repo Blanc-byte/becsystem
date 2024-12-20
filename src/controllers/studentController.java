@@ -12,6 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
@@ -38,22 +41,26 @@ public class studentController {
         loadRequestsToTable();
         setID();
     }
-    public void logout(ActionEvent event){
+    public void logout(ActionEvent event)throws Exception{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/auth/auth.fxml"));
+        Parent root = loader.load();
+
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
         Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
+    
+    
     public void setID()throws Exception{
-        BufferedReader reader = new BufferedReader(new FileReader("C:/Users/Administrator/Documents/NetBeansProjects/BECSystem/src/id.txt")); 
+        BufferedReader reader = new BufferedReader(new FileReader("C:/Users/franc/Documents/NetBeansProjects/BECSystem/src/id.txt")); 
         String line;
         while ((line = reader.readLine()) != null) {
             studentID=line;
         }
-    }
-    public String userN;
-    public void setUsername(String userName){
-        this.userN = userName;
-        studentID=userName;
-        System.out.println("Student ID received: " + userN);
     }
     
     ObservableList<requestsModel> requestsPending = FXCollections.observableArrayList();

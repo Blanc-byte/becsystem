@@ -16,9 +16,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -87,49 +89,51 @@ public class authController {
         return false;
     }
     public void logIn(ActionEvent event)throws Exception{
-        
-        boolean logIned = true;
-        if(checkregistrarauth()){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/registrar/stage.fxml"));
-            Parent root = loader.load();
+        if(!user.getText().equals("") && !pass.getText().equals("")){
+            boolean logIned = false;
+            if(checkregistrarauth()){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/registrar/stage.fxml"));
+                Parent root = loader.load();
 
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
 
-            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
-            logIned=false;
-        }else{
-            for(userModel usered: users){
-                if(usered.getUsername().contains(user.getText()) && usered.getPassword().contains(pass.getText())){
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/student/stage.fxml"));
-                    Parent root = loader.load();
+                Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                currentStage.close();
+                logIned=false;
+            }else{
+                for(userModel usered: users){
+                    if(usered.getUsername().contains(user.getText()) && usered.getPassword().contains(pass.getText())){
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/student/stage.fxml"));
+                        Parent root = loader.load();
 
-                    Stage newStage = new Stage();
-                    newStage.setScene(new Scene(root));
-                    newStage.show();
+                        Stage newStage = new Stage();
+                        newStage.setScene(new Scene(root));
+                        newStage.show();
 
-                    Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                    currentStage.close();
+                        Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                        currentStage.close();
 
-                    studentController sC= new studentController();
-                    sC.setUsername(usered.getId()+"");
+                        writeToFile(usered.getId() + "", usered.getUsername());
 
-                    writeToFile(usered.getId() + "", usered.getUsername());
-
-                    logIned=false;
+                        logIned=false;
+                    }
                 }
             }
-        }
-        if(logIned){
-            JOptionPane.showMessageDialog(null, "try again!!!");
-        }
+            if(logIned){
+                JOptionPane.showMessageDialog(null, "Invalid Username or Password!!!");
+            }
         
+        }else{
+            JOptionPane.showMessageDialog(null, "FILL IN ALL THE INFORMATION BEFORE PROCEEDING");
+            
+        }
+
     }
     public void writeToFile(String userId, String username) throws Exception{
         // Define the path to the text file
-        String filePath = "C:/Users/Administrator/Documents/NetBeansProjects/BECSystem/src/id.txt";  // Path to save the file (can be adjusted)
+        String filePath = "C:/Users/franc/Documents/NetBeansProjects/BECSystem/src/id.txt";  // Path to save the file (can be adjusted)
 
         // Prepare the data you want to write to the file
         String dataToWrite = userId;
@@ -141,7 +145,8 @@ public class authController {
         writer.close();
         
     }
-    @FXML private TextField fname,mname,lname,contact,schoolID, user, pass;
+    @FXML private TextField fname,mname,lname,contact,schoolID, user;
+    @FXML private PasswordField pass;
     @FXML private ChoiceBox year,section, course;
     public boolean checkThe1stPhase()throws Exception{
         if(fname.getText().equals("") || mname.getText().equals("") || lname.getText().equals("") ||
@@ -196,6 +201,12 @@ public class authController {
                             + "'" + course.getValue() + "');";
         java.sql.Statement statement = con.createStatement();
         statement.executeUpdate(insertSql);
+        loadStudents();
+        for(userModel usered: users){
+            if(usered.getUsername().contains(userRegister.getText()) && usered.getPassword().contains(passRegister.getText())){
+                writeToFile(usered.getId() + "", usered.getUsername());
+            }
+        }
     }
     @FXML private Pane logIn, signUp, typeOf, signUp2ndPhase;
     public void logInShow(){
@@ -240,4 +251,22 @@ public class authController {
         return con;
     
     }
+    
+    // Method to handle the back button click
+    @FXML
+    public void handleBackButtonClick(ActionEvent event) throws Exception {
+        // Check which pane you want to go back to
+        if (signUp.isVisible()) {
+            // Go back to typeOf from signUp
+            signUp.setVisible(false);
+            typeOf.setVisible(true);
+        } else if (typeOf.isVisible()) {
+            // Go back to login from typeOf
+            logIn.setVisible(true);
+            typeOf.setVisible(false);
+        }
+    }
+
+    
+    
 }

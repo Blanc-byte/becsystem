@@ -16,9 +16,9 @@ public class main extends Application{
     
     @Override
     public void start(Stage stage) throws Exception {
-     Parent root = FXMLLoader.load(getClass().getResource("auth/auth.fxml"));
-//        Parent root = FXMLLoader.load(getClass().getResource("student/stage.fxml"));
-//      Parent root = FXMLLoader.load(getClass().getResource("registrar/stage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("auth/auth.fxml"));
+ //     Parent root = FXMLLoader.load(getClass().getResource("student/stage.fxml"));
+ //     Parent root = FXMLLoader.load(getClass().getResource("registrar/stage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -26,4 +26,6 @@ public class main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+    
+    
 }
