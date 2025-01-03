@@ -51,6 +51,7 @@ public class authController {
     }
     
     
+    ObservableList<String> schoolIDs = FXCollections.observableArrayList();
     ObservableList<userModel> users = FXCollections.observableArrayList();
     ObservableList<String> usernames = FXCollections.observableArrayList();
     ObservableList<String> passwords = FXCollections.observableArrayList();
@@ -77,6 +78,7 @@ public class authController {
             users.add(new userModel(i1,i2,i3,i4,i5,i6,i7,i8,i9,i10, i11, i12, i13,i14,i15));
             usernames.add(i12);
             passwords.add(i13);
+            schoolIDs.add(i6);
         }
     }
     public boolean checkregistrarauth()throws Exception{
@@ -102,7 +104,7 @@ public class authController {
             logIned=false;
         }else{
             for(userModel usered: users){
-                if(usered.getUsername().contains(user.getText()) && usered.getPassword().contains(pass.getText())){
+                if(usered.getUsername().contains(user.getText()) && usered.getPassword().contains(pass.getText()) && usered.getStatus().equals("1")){
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/student/stage.fxml"));
                     Parent root = loader.load();
 
@@ -112,9 +114,6 @@ public class authController {
 
                     Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                     currentStage.close();
-
-                    studentController sC= new studentController();
-                    sC.setUsername(usered.getId()+"");
 
                     writeToFile(usered.getId() + "", usered.getUsername());
 
@@ -144,7 +143,7 @@ public class authController {
     @FXML private TextField fname,mname,lname,contact,schoolID, user, pass;
     @FXML private ChoiceBox year,section, course;
     public boolean checkThe1stPhase()throws Exception{
-        if(fname.getText().equals("") || mname.getText().equals("") || lname.getText().equals("") ||
+        if(fname.getText().equals("") || lname.getText().equals("") ||
            contact.getText().equals("") || schoolID.getText().equals("") || 
                 year.getValue()==null || section.getValue()==null || course.getValue()==null){
             JOptionPane.showMessageDialog(null, "FILL IN ALL THE INFORMATION BEFORE PROCEEDING");
@@ -196,6 +195,13 @@ public class authController {
                             + "'" + course.getValue() + "');";
         java.sql.Statement statement = con.createStatement();
         statement.executeUpdate(insertSql);
+        loadStudents();
+        for(userModel usered: users){
+            if(usered.getUsername().contains(userRegister.getText()) && usered.getPassword().contains(passRegister.getText())){
+                writeToFile(usered.getId() + "", usered.getUsername());
+            }
+        }
+        
     }
     @FXML private Pane logIn, signUp, typeOf, signUp2ndPhase;
     public void logInShow(){
@@ -217,10 +223,19 @@ public class authController {
 //        schoolID.setDisable(true);
         typeOfStudent = "EXTERNAL";
     }
+    public void checkID(){
+        
+    }
     public void signUp2ndPhaseShow()throws Exception{
+        
         if(checkThe1stPhase()){
-            signUp.setVisible(false);
-            signUp2ndPhase.setVisible(true);
+            if(schoolIDs.contains(schoolID.getText())){
+                JOptionPane.showMessageDialog(null, "School ID already Exist");
+            }else{
+                signUp.setVisible(false);
+                signUp2ndPhase.setVisible(true);
+                
+            }
         }
     }
     public void typeOfShow(){

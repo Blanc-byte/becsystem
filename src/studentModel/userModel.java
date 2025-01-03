@@ -1,6 +1,8 @@
 
 package studentModel;
 
+
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -225,4 +227,39 @@ public class userModel {
     public StringProperty courseProperty() {
         return course;
     }
+    
+    public StringProperty fullNameProperty() {
+        SimpleStringProperty fullName = new SimpleStringProperty();
+        // Bind the fullName property to the concatenation of first, middle, and last name
+        fullName.bind(new StringBinding() {
+            {
+                bind(firstname, middlename, lastname); // Bind all three properties
+            }
+
+            @Override
+            protected String computeValue() {
+                // Combine the first name, middle name, and last name into a full name
+                return firstname.get() + " " + middlename.get() + " " + lastname.get();
+            }
+        });
+        return fullName;
+    }
+    
+    public StringProperty yearAndSectionProperty() {
+        SimpleStringProperty yearAndSection = new SimpleStringProperty();
+        // Bind the fullName property to the concatenation of first, middle, and last name
+        yearAndSection.bind(new StringBinding() {
+            {
+                bind(year, section); // Bind all three properties
+            }
+
+            @Override
+            protected String computeValue() {
+                // Combine the first name, middle name, and last name into a full name
+                return year.get() + "" + section.get();
+            }
+        });
+        return yearAndSection;
+    }
+
 }

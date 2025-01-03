@@ -70,7 +70,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="home" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" style="-fx-background-color: darkblue;">
+      <Pane fx:id="home" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" style="-fx-background-color: darkblue;" visible="false">
          <children>
             <Label layoutX="189.0" layoutY="43.0" prefHeight="27.0" prefWidth="210.0" text="SERVICE AVAILABLE" textFill="#f5f5f5">
                <font>
@@ -139,6 +139,24 @@
                <columns>
                   <TableColumn fx:id="requestDenied" prefWidth="229.0" text="REQUEST" />
                   <TableColumn fx:id="dateDenied" prefWidth="252.0" text="DATE REQUESTED" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane fx:id="mhot" layoutX="200.0" prefHeight="400.0" prefWidth="552.0" style="-fx-background-color: darkblue;">
+         <children>
+            <TableView fx:id="serviceTable" layoutX="22.0" layoutY="39.0" prefHeight="334.0" prefWidth="240.0">
+              <columns>
+                <TableColumn fx:id="m1" prefWidth="155.0" text="NAME" />
+                <TableColumn fx:id="m2" prefWidth="82.0" />
+              </columns>
+            </TableView>
+            <TextArea fx:id="reas" layoutX="286.0" layoutY="268.0" prefHeight="70.0" prefWidth="240.0" />
+            <Button layoutX="286.0" layoutY="346.0" mnemonicParsing="false" onAction="#loadRequestedServicesToDb" prefHeight="27.0" prefWidth="240.0" text="CONFIRM" />
+            <TableView fx:id="selectedServiceTable" layoutX="286.0" layoutY="39.0" prefHeight="219.0" prefWidth="240.0">
+               <columns>
+                  <TableColumn fx:id="n1" prefWidth="157.0" text="NAME" />
+                  <TableColumn fx:id="n2" />
                </columns>
             </TableView>
          </children>

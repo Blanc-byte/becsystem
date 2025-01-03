@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import studentModel.requestsModel;
+import studentModel.service;
 
 /**
  *
@@ -37,6 +38,7 @@ public class studentController {
         connect();
         loadRequestsToTable();
         setID();
+        loadRequestsToServiceTable();
     }
     public void logout(ActionEvent event){
         Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -48,13 +50,10 @@ public class studentController {
         while ((line = reader.readLine()) != null) {
             studentID=line;
         }
+        
+        System.out.println("---"+studentID);
     }
-    public String userN;
-    public void setUsername(String userName){
-        this.userN = userName;
-        studentID=userName;
-        System.out.println("Student ID received: " + userN);
-    }
+    
     
     ObservableList<requestsModel> requestsPending = FXCollections.observableArrayList();
     ObservableList<requestsModel> requestsApprove = FXCollections.observableArrayList();
@@ -62,7 +61,7 @@ public class studentController {
     public void getRequest()throws Exception{
         requestsPending.clear();requestsApprove.clear();requestsDenied.clear();
         java.sql.Statement statement = con.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM requests");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM requests WHERE student_id = '"+studentID+"'");
         while(resultSet.next()){
             String i = resultSet.getString("id");
             String ii = resultSet.getString("student_id");
@@ -126,6 +125,136 @@ public class studentController {
             }
         });
     }
+    
+    
+    
+    
+    ObservableList<service> services = FXCollections.observableArrayList();
+    ObservableList<service> selectedServices = FXCollections.observableArrayList();
+    public void getServices()throws Exception{
+        services.clear();
+        java.sql.Statement statement = con.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM service");
+        while(resultSet.next()){
+            String i = resultSet.getString("id");
+            String ii = resultSet.getString("name");
+            String iii = resultSet.getString("status");
+            services.add(new service(i,ii,iii));
+        }
+    }
+    @FXML private TableView<service> serviceTable, selectedServiceTable;
+    @FXML private TableColumn<service, String> m1,n1;
+    @FXML private TableColumn<service, Void> m2,n2;
+    public void loadRequestsToServiceTable() throws Exception {
+        m1.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        
+        getServices();
+        serviceTable.setItems(services);
+
+        
+        m2.setCellFactory(col -> new TableCell<>() {
+            private final Button cancelButton = new Button("SELECT");
+
+            {
+                
+                cancelButton.setOnAction(event -> {
+                    service serviced = getTableView().getItems().get(getIndex());
+                    //deleteRequest(request); 
+                    try {
+                        boolean True = true;
+                        for(service s: selectedServices){
+                            if(s.getid().equals(serviced.getid())){
+                                True = false;
+                            }
+                        }
+                        if(True){
+                            selectedServices.add(new service(serviced.getid(),serviced.getname(),serviced.getstatus()));
+                        }
+                        
+                        loadRequestsToSelectedServiceTable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(cancelButton);
+                }
+            }
+        });
+    }
+    
+    public void loadRequestsToSelectedServiceTable() throws Exception {
+        n1.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        
+        selectedServiceTable.setItems(selectedServices);
+        
+        n2.setCellFactory(col -> new TableCell<>() {
+            private final Button cancelButton = new Button("REMOVE");
+
+            {
+                
+                cancelButton.setOnAction(event -> {
+                    service serviced = getTableView().getItems().get(getIndex());
+                    //deleteRequest(request); 
+                    try {
+                        selectedServices.remove(serviced);
+                        loadRequestsToSelectedServiceTable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(cancelButton);
+                }
+            }
+        });
+    }
+    @FXML private TextArea reas;
+    public void loadRequestedServicesToDb()throws Exception{
+        String servicesGiSumpay = "";
+        int a=0;
+        if(!selectedServices.isEmpty() && !reas.getText().equals("")){
+            for(service s: selectedServices){
+                if(a<1){
+                    servicesGiSumpay += s.getname();
+                }else{
+                    servicesGiSumpay += ", "+s.getname();
+                }
+                a++;
+
+
+            }
+            String insertSql = "INSERT INTO `requests`(`student_id`, `reason`, `file`) "
+                                + "VALUES ('" + studentID + "', "
+                                + "'" + reas.getText() + "', "
+                                + "'" + servicesGiSumpay + "');";
+            java.sql.Statement statement = con.createStatement();
+            int rowsInserted = statement.executeUpdate(insertSql);
+            
+            reas.setText("");
+            selectedServices.clear();
+            loadRequestsToSelectedServiceTable();
+            JOptionPane.showMessageDialog(null, "Successfully requested");
+        }else{
+            JOptionPane.showMessageDialog(null, "Request Failed");
+            
+        }
+        
+}
 
     public void deleteRequest(requestsModel request) {
         try {
@@ -137,16 +266,17 @@ public class studentController {
             e.printStackTrace();
         }
     }
-    @FXML private Pane home, pending, approve,denied, reason, credentialsPane;
-    public void homeClick(){
-        home.setVisible(true);
+    @FXML private Pane home, pending, approve,denied, reason, credentialsPane,mhot;
+    public void homeClick()throws Exception{
+        mhot.setVisible(true);
         pending.setVisible(false);
         approve.setVisible(false);
         credentialsPane.setVisible(false);
         denied.setVisible(false);
+        loadRequestsToServiceTable();
     }
     public void pendingClick()throws Exception{
-        home.setVisible(false);
+        mhot.setVisible(false);
         pending.setVisible(true);
         approve.setVisible(false);
         credentialsPane.setVisible(false);
@@ -154,7 +284,7 @@ public class studentController {
         loadRequestsToTable();
     }
     public void approveClick()throws Exception{
-        home.setVisible(false);
+        mhot.setVisible(false);
         pending.setVisible(false);
         approve.setVisible(true);
         credentialsPane.setVisible(false);
@@ -162,7 +292,7 @@ public class studentController {
         loadRequestsToTable();
     }
     public void deniedClick()throws Exception{
-        home.setVisible(false);
+        mhot.setVisible(false);
         pending.setVisible(false);
         approve.setVisible(false);
         denied.setVisible(true);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,24 +12,34 @@
    <children>
       <Pane layoutY="358.0" prefHeight="50.0" prefWidth="750.0" style="-fx-background-color: darkblue; -fx-border-radius: 10; -fx-border-width: 1;">
          <children>
-            <Button layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#pendingClick" prefHeight="38.0" prefWidth="171.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="PENDING" textFill="WHITE">
+            <Button layoutX="24.0" layoutY="6.0" mnemonicParsing="false" onAction="#pendingClick" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="PENDING" textFill="WHITE">
                <font>
                   <Font name="Agency FB" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="204.0" layoutY="6.0" mnemonicParsing="false" onAction="#historyClick" prefHeight="38.0" prefWidth="171.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="HISTORY">
+            <Button layoutX="164.0" layoutY="6.0" mnemonicParsing="false" onAction="#historyClick" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="HISTORY">
                <font>
                   <Font name="Agency FB" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="565.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="171.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="LOG OUT" textFill="WHITE">
+            <Button layoutX="584.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="LOG OUT" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="304.0" layoutY="6.0" mnemonicParsing="false" onAction="#serviceClick" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="SERVICES">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="444.0" layoutY="6.0" mnemonicParsing="false" onAction="#studentsClick" prefHeight="38.0" prefWidth="140.0" style="-fx-background-color: lightgray; -fx-text-fill: black; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5; -fx-border-color: white; -fx-border-width: 2; -fx-cursor: hand;" text="UNVERIFIED">
                <font>
                   <Font name="Agency FB" size="20.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="history" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue; -fx-border-radius: 10; -fx-border-width: 1;">
+      <Pane fx:id="history" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue; -fx-border-radius: 10; -fx-border-width: 1;" visible="false">
          <children>
             <Pane layoutX="7.0" layoutY="14.0" prefHeight="124.0" prefWidth="122.0" style="-fx-border-radius: 10; -fx-border-width: 1;">
                <children>
@@ -58,16 +69,55 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="pending" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue;" visible="false">
+      <Pane fx:id="pending" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue;">
          <children>
             <TableView fx:id="pendingTable" layoutX="14.0" layoutY="14.0" prefHeight="332.0" prefWidth="722.0" style="-fx-background-color: darkgray;">
               <columns>
                 <TableColumn fx:id="name" prefWidth="168.0" text="Name" />
                 <TableColumn fx:id="dateRequested" prefWidth="104.0" text="Date Requested" />
-                  <TableColumn fx:id="file" prefWidth="299.0" text="File" />
-                  <TableColumn fx:id="actions" prefWidth="143.0" />
+                  <TableColumn fx:id="file" prefWidth="196.0" text="File" />
+                  <TableColumn fx:id="reason" prefWidth="148.0" text="Reason" />
+                  <TableColumn fx:id="actions" prefWidth="97.0" />
               </columns>
             </TableView>
+         </children>
+      </Pane>
+      <Pane fx:id="service" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue;" visible="false">
+         <children>
+            <TableView fx:id="serviceTable" layoutX="203.0" layoutY="98.0" prefHeight="200.0" prefWidth="395.0">
+              <columns>
+                <TableColumn fx:id="m1" prefWidth="178.0" text="Name" />
+                <TableColumn fx:id="m2" prefWidth="79.0" text="Status" />
+                  <TableColumn fx:id="m3" prefWidth="125.0" />
+              </columns>
+            </TableView>
+            <Label layoutX="253.0" layoutY="14.0" text="AVAILABLE SERVICES" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="46.0" />
+               </font>
+            </Label>
+            <Button layoutX="357.0" layoutY="307.0" mnemonicParsing="false" onAction="#addNewService" text="ADD SERVICE" />
+         </children>
+      </Pane>
+      <Pane fx:id="students" prefHeight="359.0" prefWidth="750.0" style="-fx-background-color: darkblue;" visible="false">
+         <children>
+            <TableView fx:id="studentTable" layoutX="9.0" layoutY="69.0" prefHeight="280.0" prefWidth="734.0">
+              <columns>
+                <TableColumn fx:id="q1" prefWidth="147.0" text="FULLNAME" />
+                <TableColumn fx:id="q2" prefWidth="69.0" text="ID" />
+                  <TableColumn fx:id="q3" prefWidth="81.0" text="CONTACT" />
+                  <TableColumn fx:id="q4" prefWidth="40.0" text="Y&amp;S" />
+                  <TableColumn fx:id="q5" prefWidth="185.0" text="CREATED" />
+                  <TableColumn fx:id="q6" prefWidth="88.0" text="TYPE" />
+                  <TableColumn fx:id="q7" prefWidth="55.0" text="COURSE" />
+                  <TableColumn fx:id="q8" prefWidth="61.0" />
+              </columns>
+            </TableView>
+            <Label layoutX="250.0" layoutY="28.0" text="UNVERIFIED STUDENTS" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB Bold" size="33.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
