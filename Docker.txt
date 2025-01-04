@@ -1,7 +1,0 @@
-FROM mysql:latest
-ENV MYSQL_ROOT_PASSWORD=saming123
-ENV MYSQL_DATABASE=becsystem
-ENV MYSQL_USER=saming
-ENV MYSQL_PASSWORD=saming123
-EXPOSE 3306
-CMD ["mysqld"]

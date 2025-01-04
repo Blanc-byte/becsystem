@@ -1,0 +1,16 @@
+FROM mysql:latest
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD=saming123
+ENV MYSQL_DATABASE=becsystem
+ENV MYSQL_USER=saming
+ENV MYSQL_PASSWORD=saming123
+
+# Expose MySQL port
+EXPOSE 3306
+
+# Copy the SQL file into the container (adjust the path to where your SQL file is located in your project)
+COPY database/becsystem.sql /docker-entrypoint-initdb.d/
+
+# Default command to start MySQL
+CMD ["mysqld"]
